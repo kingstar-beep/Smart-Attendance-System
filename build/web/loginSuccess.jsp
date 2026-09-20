@@ -184,7 +184,7 @@ University of Greenwich
 
 <div class="card">
 
-<h3>Current Location</h3>
+<h3>Your Current Location</h3>
 
 <p id="locationText">
 
@@ -196,7 +196,7 @@ Detecting...
 
 <div class="card">
 
-<h3>Authentication</h3>
+<h3>Location Verification</h3>
 
 <p style="color:green;">
 Verified

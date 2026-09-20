@@ -122,7 +122,12 @@
             <%
                 }
             %>
+            <div>
+                <span style="align-content: center;">
+                    <h4> Welcome to the Attendance Portal, verify your identity by Login with your student ID to validate your attendance.</h4>
 
+                </span>
+            </div>
             <form action="LoginServlet" method="post">
 
                 <label>Student ID</label>
@@ -146,6 +151,18 @@
                 </button>
 
             </form>
+
+            <div style="text-align:center; margin-top:20px;">
+
+                <p>
+                    New student?
+                    <a href="studentRegister.jsp"
+                       style="color:#002147; font-weight:bold; text-decoration:none;">
+                        Register here
+                    </a>
+                </p>
+
+            </div>
 
             <div class="features">
 

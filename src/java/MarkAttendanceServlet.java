@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+import model.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -55,10 +56,24 @@ public class MarkAttendanceServlet extends HttpServlet {
 
         Student student = (Student) httpSession.getAttribute("student");
         String studentId = student.getStudentId();
-
         String sessionCode = request.getParameter("code");
+
         String imageData = request.getParameter("imageData");
-        String imagePath = saveImage(imageData, sessionCode);
+
+        if (imageData == null || imageData.trim().isEmpty()) {
+
+            request.setAttribute(
+                    "message",
+                    "Please capture your photo before submitting attendance."
+            );
+
+            request.setAttribute("code", sessionCode);
+
+            request.getRequestDispatcher("student.jsp")
+                    .forward(request, response);
+
+            return;
+        }
 
         System.out.println("Code received: " + request.getParameter("code"));
 
@@ -82,8 +97,69 @@ public class MarkAttendanceServlet extends HttpServlet {
             request.getRequestDispatcher("student.jsp").forward(request, response);
             return;
         }
-        double userLat = Double.parseDouble(latStr);
-        double userLng = Double.parseDouble(lngStr);
+        /* double userLat = Double.parseDouble(latStr);
+        double userLng = Double.parseDouble(lngStr); */
+
+        double userLat;
+        double userLng;
+
+        try {
+
+            userLat
+                    = Double.parseDouble(
+                            latStr.trim());
+
+            userLng
+                    = Double.parseDouble(
+                            lngStr.trim());
+
+        } catch (NumberFormatException e) {
+
+            request.setAttribute(
+                    "message",
+                    "Invalid location information."
+            );
+
+            request.setAttribute(
+                    "code",
+                    sessionCode
+            );
+
+            request.getRequestDispatcher(
+                    "student.jsp"
+            ).forward(
+                    request,
+                    response
+            );
+
+            return;
+        }
+
+// Validate geographic coordinate ranges
+        if (userLat < -90
+                || userLat > 90
+                || userLng < -180
+                || userLng > 180) {
+
+            request.setAttribute(
+                    "message",
+                    "Invalid geographic coordinates."
+            );
+
+            request.setAttribute(
+                    "code",
+                    sessionCode
+            );
+
+            request.getRequestDispatcher(
+                    "student.jsp"
+            ).forward(
+                    request,
+                    response
+            );
+
+            return;
+        }
 
         // STEP 4: GEO VALIDATION
         double distance = calculateDistance(
@@ -105,20 +181,149 @@ public class MarkAttendanceServlet extends HttpServlet {
             return;
         }
 
+        /*   // Save the captured image only after all initial validations pass
+        String imagePath = saveImage(imageData, sessionCode);
+
+        if (imagePath == null) {
+
+            request.setAttribute(
+                    "message",
+                    "Unable to save the captured photo. Please try again."
+            );
+
+            request.setAttribute("code", sessionCode);
+
+            request.getRequestDispatcher("student.jsp")
+                    .forward(request, response);
+
+            return;
+        }
+
         // Save attendance
         AttendanceDAO attendanceDAO = new AttendanceDAO();
-        if (attendanceDAO.hasAttendance(sessionCode)) {
-            request.setAttribute("message", "Attendance already recorded!");
+
+        if (attendanceDAO.hasAttendance(sessionCode, studentId)) {
+
+            request.setAttribute(
+                    "message",
+                    "Attendance has already been recorded for this lecture."
+            );
+
         } else {
-            attendanceDAO.saveAttendance(sessionCode, imagePath, studentId);
-            request.setAttribute("message",
+
+            boolean saved
+                    = attendanceDAO.saveAttendance(
+                            sessionCode,
+                            imagePath,
+                            studentId
+                    );
+
+            if (saved) {
+
+                request.setAttribute(
+                        "message",
+                        "<h2>Attendance Successfully Recorded</h2>"
+                        + "<br>✔ Student Identity Verified"
+                        + "<br>✔ QR Code Authentication Passed"
+                        + "<br>✔ Geo-Location Confirmed"
+                        + "<br>✔ Image Verification Captured"
+                        + "<br>✔ Attendance Logged Successfully"
+                );
+
+            } else {
+
+                request.setAttribute(
+                        "message",
+                        "Unable to record attendance. Please try again."
+                );
+            }
+        } */
+        // Check duplicate attendance before saving another image
+        AttendanceDAO attendanceDAO
+                = new AttendanceDAO();
+
+        if (attendanceDAO.hasAttendance(
+                sessionCode,
+                studentId)) {
+
+            request.setAttribute(
+                    "message",
+                    "Attendance has already been recorded for this lecture."
+            );
+
+            request.setAttribute(
+                    "code",
+                    sessionCode
+            );
+
+            request.getRequestDispatcher(
+                    "student.jsp"
+            ).forward(
+                    request,
+                    response
+            );
+
+            return;
+        }
+
+// Save the captured image only after
+// all validation checks have passed.
+        String imagePath
+                = saveImage(
+                        imageData,
+                        sessionCode
+                );
+
+        if (imagePath == null) {
+
+            request.setAttribute(
+                    "message",
+                    "Unable to save the captured photo. Please try again."
+            );
+
+            request.setAttribute(
+                    "code",
+                    sessionCode
+            );
+
+            request.getRequestDispatcher(
+                    "student.jsp"
+            ).forward(
+                    request,
+                    response
+            );
+
+            return;
+        }
+
+// Save attendance
+        boolean saved
+                = attendanceDAO.saveAttendance(
+                        sessionCode,
+                        imagePath,
+                        studentId
+                );
+
+        if (saved) {
+
+            request.setAttribute(
+                    "message",
                     "<h2>Attendance Successfully Recorded</h2>"
                     + "<br>✔ Student Identity Verified"
                     + "<br>✔ QR Code Authentication Passed"
                     + "<br>✔ Geo-Location Confirmed"
                     + "<br>✔ Image Verification Captured"
-                    + "<br>✔ Attendance Logged Successfully");
+                    + "<br>✔ Attendance Logged Successfully"
+            );
+
+        } else {
+
+            request.setAttribute(
+                    "message",
+                    "Unable to record attendance. Please try again."
+            );
         }
+
 
         /*   if (System.currentTimeMillis() > session.getExpiryTime()) {
             request.setAttribute("message", "Session has expired!");
@@ -131,7 +336,7 @@ public class MarkAttendanceServlet extends HttpServlet {
 
     public double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
 
-        final int R = 6371; // Earth radius in KM
+        final double R = 6371000; // Earth radius in metres
 
         double latDistance = Math.toRadians(lat2 - lat1);
         double lonDistance = Math.toRadians(lon2 - lon1);

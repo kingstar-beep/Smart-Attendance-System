@@ -16,6 +16,7 @@ public class Attendance {
     private String imagePath;
     private String checkInTime;
     private String studentName;
+    private String course;
 
     public int getId() {
         return id;
@@ -63,5 +64,13 @@ public class Attendance {
 
     public void setStudentName(String studentName) {
         this.studentName = studentName;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 }

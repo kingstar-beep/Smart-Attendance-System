@@ -1,53 +1,57 @@
 
+import model.Lecturer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import model.Student;
+import model.Session;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+public class LecturerDAO {
 
-/**
- *
- * @author KINGSTAR
- */
-public class StudentDAO {
+    public Lecturer login(String lecturerId, String password) {
 
-    public Student login(String studentId, String password) {
-
-        Student student = null;
+        Lecturer lecturer = null;
 
         try {
             Connection con = DBConnection.getConnection();
 
-            String sql = "SELECT * FROM students WHERE student_id=? AND password=?";
+            String sql = "SELECT * FROM lecturers "
+                    + "WHERE lecturer_id = ? AND password = ?";
+
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, studentId);
+
+            ps.setString(1, lecturerId);
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                student = new Student();
-                student.setStudentId(rs.getString("student_id"));
-                student.setName(rs.getString("name"));
-                student.setImagePath(rs.getString("image_path")
+
+                lecturer = new Lecturer();
+
+                lecturer.setLecturerId(
+                        rs.getString("lecturer_id")
+                );
+
+                lecturer.setName(
+                        rs.getString("name")
                 );
             }
+
+            rs.close();
+            ps.close();
+            con.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return student;
+        return lecturer;
     }
 
-    public boolean studentExists(String studentId) {
+    public boolean lecturerExists(String lecturerId) {
 
         String sql
-                = "SELECT COUNT(*) FROM students WHERE student_id = ?";
+                = "SELECT COUNT(*) FROM lecturers WHERE lecturer_id = ?";
 
         try {
 
@@ -57,7 +61,7 @@ public class StudentDAO {
             PreparedStatement ps
                     = con.prepareStatement(sql);
 
-            ps.setString(1, studentId);
+            ps.setString(1, lecturerId);
 
             ResultSet rs
                     = ps.executeQuery();
@@ -84,14 +88,14 @@ public class StudentDAO {
         }
     }
 
-    public boolean registerStudent(
-            String studentId,
+    public boolean registerLecturer(
+            String lecturerId,
             String name,
             String password) {
 
         String sql
-                = "INSERT INTO students "
-                + "(student_id, password, name) "
+                = "INSERT INTO lecturers "
+                + "(lecturer_id, name, password) "
                 + "VALUES (?, ?, ?)";
 
         try {
@@ -102,9 +106,9 @@ public class StudentDAO {
             PreparedStatement ps
                     = con.prepareStatement(sql);
 
-            ps.setString(1, studentId);
-            ps.setString(2, password);
-            ps.setString(3, name);
+            ps.setString(1, lecturerId);
+            ps.setString(2, name);
+            ps.setString(3, password);
 
             int rows
                     = ps.executeUpdate();
@@ -121,5 +125,4 @@ public class StudentDAO {
             return false;
         }
     }
-
 }

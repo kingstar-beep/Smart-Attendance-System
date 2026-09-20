@@ -14,230 +14,248 @@
     </head>
     <style>
 
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f4f6f9;
-}
+        body{
+            margin:0;
+            font-family:Arial,sans-serif;
+            background:#f4f6f9;
+        }
 
-.header{
-    background:#002147;
-    color:white;
-    text-align:center;
-    padding:20px;
-}
+        .header{
+            background:#002147;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
 
-.container{
-    width:900px;
-    margin:30px auto;
-}
+        .container{
+            width:900px;
+            margin:30px auto;
+        }
 
-.card{
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
+        .card{
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
 
-h2{
-    color:#002147;
-}
+        h2{
+            color:#002147;
+        }
 
-video{
-    width:100%;
-    border-radius:10px;
-    border:2px solid #ddd;
-}
+        video{
+            width:100%;
+            border-radius:10px;
+            border:2px solid #ddd;
+        }
 
-button{
-    padding:12px 25px;
-    background:#F5B800;
-    border:none;
-    font-weight:bold;
-    cursor:pointer;
-    border-radius:5px;
-}
+        button{
+            padding:12px 25px;
+            background:#F5B800;
+            border:none;
+            font-weight:bold;
+            cursor:pointer;
+            border-radius:5px;
+        }
 
-button:hover{
-    background:#d9a600;
-}
+        button:hover{
+            background:#d9a600;
+        }
 
-.status{
-    margin-top:15px;
-    color:green;
-    font-weight:bold;
-}
+        .status{
+            margin-top:15px;
+            color:green;
+            font-weight:bold;
+        }
 
-.features{
-    margin-top:20px;
-}
+        .features{
+            margin-top:20px;
+        }
 
-.features p{
-    margin:6px 0;
-}
+        .features p{
+            margin:6px 0;
+        }
 
-.message{
-    background:#e8f5e9;
-    color:#2e7d32;
-    padding:10px;
-    border-radius:5px;
-    margin-bottom:15px;
-}
+        .message{
+            background:#e8f5e9;
+            color:#2e7d32;
+            padding:10px;
+            border-radius:5px;
+            margin-bottom:15px;
+        }
 
-</style>
+    </style>
     <body>
 
-<div class="header">
+        <div class="header">
 
-<h1>University of Greenwich</h1>
+            <h1>University of Greenwich</h1>
 
-<p>Smart Attendance Management System</p>
+            <p>Smart Attendance Management System</p>
 
-</div>
+        </div>
 
-<div class="container">
+        <div class="container">
 
-<div class="card">
+            <div class="card">
 
-<h2>Attendance Verification Portal</h2>
+                <h2>Attendance Verification Portal</h2>
 
-<%
-String msg =
-(String)request.getAttribute("message");
+                <%
+                    String msg
+                            = (String) request.getAttribute("message");
 
-if(msg != null){
-%>
+                    if (msg != null) {
+                %>
 
-<div class="message">
-    <%= msg %>
-</div>
+                <div class="message">
+                    <%= msg%>
+                </div>
 
-<%
-}
-%>
+                <%
+                    }
+                %>
 
-<p>
+                <p>
 
-<b>Session Code:</b>
+                    <b>Session Code:</b>
 
-<%= request.getAttribute("code") %>
+                    <%= request.getAttribute("code")%>
 
-</p>
+                </p>
 
-<p class="status">
+                <p class="status">
 
-📍 GPS Location Verification Active
+                    📍 GPS Location Verification Active
 
-</p>
+                </p>
 
-<form action="MarkAttendanceServlet"
-      method="post">
+                <form action="MarkAttendanceServlet"
+                      method="post">
 
-<input type="hidden"
-       name="code"
-       value="<%= request.getAttribute("code") %>">
+                    <input type="hidden"
+                           name="code"
+                           value="<%= request.getAttribute("code")%>">
 
-<input type="hidden"
-       id="lat"
-       name="lat">
+                    <input type="hidden"
+                           id="lat"
+                           name="lat">
 
-<input type="hidden"
-       id="lng"
-       name="lng">
+                    <input type="hidden"
+                           id="lng"
+                           name="lng">
 
-<input type="hidden"
-       id="imageData"
-       name="imageData">
+                    <input type="hidden"
+                           id="imageData"
+                           name="imageData">
 
-<h3>Camera Verification</h3>
+                    <h3>Camera Verification</h3>
 
-<video id="video"
-       autoplay></video>
+                    <video id="video"
+                           autoplay></video>
 
-<br><br>
+                    <br><br>
 
-<button type="button"
-        onclick="captureImage()">
+                    <button class="captureimage" type="button"
+                            onclick="captureImage()">
 
-Capture Photo
+                        Capture Photo
 
-</button>
+                    </button>
 
-<br><br>
+                    <br><br>
 
-<button type="submit">
+                    <button class="submitattendance"
+                            type="submit"
+                            id="submitBtn"
+                            style="display:none;">
 
-Submit Attendance
+                        Submit Attendance
 
-</button>
+                    </button>
 
-</form>
+                </form>
 
-<div class="features">
+                <div class="features">
 
-<h3>Verification Layers</h3>
+                    <h3>Verification Layers</h3>
 
-<p>✔ Student Login Authentication</p>
+                    <p>✔ Student Login Authentication</p>
 
-<p>✔ QR Code Validation</p>
+                    <p>✔ QR Code Validation</p>
 
-<p>✔ GPS Location Verification</p>
+                    <p>✔ GPS Location Verification</p>
 
-<p>✔ Image Confirmation</p>
+                    <p>✔ Image Confirmation</p>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-</div>
-       <script>
+        </div>      
+        <script>
 
-navigator.geolocation.getCurrentPosition(
+            navigator.geolocation.getCurrentPosition(
+                    function (position) {
 
-function(position){
+                        document.getElementById("lat").value =
+                                position.coords.latitude;
 
-document.getElementById("lat").value =
-position.coords.latitude;
+                        document.getElementById("lng").value =
+                                position.coords.longitude;
 
-document.getElementById("lng").value =
-position.coords.longitude;
+                    }
 
-}
+            );
 
-);
+            navigator.mediaDevices.getUserMedia({
+                video: true
+            })
 
-navigator.mediaDevices.getUserMedia({
-video:true
-})
+                    .then(function (stream) {
 
-.then(function(stream){
+                        document.getElementById("video")
+                                .srcObject = stream;
 
-document.getElementById("video")
-.srcObject = stream;
+                    });
 
-});
+            function captureImage() {
 
-function captureImage(){
+                const canvas = document.createElement("canvas");
+                const video = document.getElementById("video");
 
-const canvas =
-document.createElement("canvas");
+                if (!video.videoWidth || !video.videoHeight) {
 
-const video =
-document.getElementById("video");
+                    alert("Camera is not ready. Please wait a moment and try again.");
+                    return;
+                }
 
-canvas.width = video.videoWidth;
-canvas.height = video.videoHeight;
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
 
-canvas.getContext("2d")
-.drawImage(video,0,0);
+                const context = canvas.getContext("2d");
 
-document.getElementById("imageData")
-.value = canvas.toDataURL("image/png");
+                context.drawImage(
+                        video,
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                        );
 
-alert("Photo captured successfully.");
+                const imageData =
+                        canvas.toDataURL("image/png");
 
-}
+                document.getElementById("imageData").value =
+                        imageData;
 
-</script>
+                // Photo has now been successfully captured
+                document.getElementById("submitBtn").style.display =
+                        "inline-block";
+
+                alert("Photo captured successfully. You can now submit your attendance.");
+            }
+
+        </script>          
     </body>
 </html>
