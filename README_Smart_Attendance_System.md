@@ -1040,10 +1040,14 @@ attendance.
 For a complete portfolio presentation, the repository can include:
 
 -   ERD
--   System architecture diagram
+-   System architecture diagram: 
 -   Activity diagram
 -   Sequence diagram
 -   Database structure
+
+<img width="1408" height="768" alt="architacture of the system" src="https://github.com/user-attachments/assets/8d4df607-7a85-4bc0-bf60-f394d3a992c1" />
+
+<img width="787" height="866" alt="Attendance Verification Sequence" src="https://github.com/user-attachments/assets/897985c3-b9ba-4941-a5e9-99fb0f93f9cc" />
 
 ------------------------------------------------------------------------
 
