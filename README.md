@@ -636,9 +636,11 @@ The project followed technical skills:
 P. Portfolio Evidence
 
 **1. Student Login**
+<img width="698" height="917" alt="image" src="https://github.com/user-attachments/assets/4625b8c2-9272-4d58-9c6b-950d099e16a3" />
 Student authentication interface.
 
 **2. Lecturer Login**
+<img width="627" height="921" alt="image" src="https://github.com/user-attachments/assets/d70e022a-2cc6-4672-9003-527684fc951e" />
 Lecturer login page.
 
 **3. Lecturer Dashboard**
@@ -648,6 +650,7 @@ Show:
 •	Location
 •	Sessions
 •	Attendance information
+
 
 **4. Lecturer Location Capture**
 Lecturer location captured successfully
