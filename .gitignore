@@ -1,0 +1,44 @@
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/nbdist/
+.nb-gradle/
+
+# Java build output
+/build/
+/dist/
+*.class
+
+# Runtime uploaded files
+/uploads/
+/web/uploads/
+/build/web/uploads/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Local configuration / secrets
+.env
+.env.*
+*.local
+
+# Database / backup files
+*.sql
+*.sql.gz
+*.bak
