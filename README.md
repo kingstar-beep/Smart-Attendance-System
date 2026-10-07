@@ -650,22 +650,26 @@ Show:
 •	Location
 •	Sessions
 •	Attendance information
-
+<img width="1793" height="958" alt="image" src="https://github.com/user-attachments/assets/76ffb9c0-dc71-4b6e-8fe6-ddac8e00325e" />
 
 **4. Lecturer Location Capture**
 Lecturer location captured successfully
 Latitude
 Longitude
+<img width="1340" height="560" alt="image" src="https://github.com/user-attachments/assets/c2a07fea-ddc5-44bf-84f6-1cdda9223852" />
 
 **5. QR Code Display**
 Generated attendance QR code.
+<img width="859" height="928" alt="image" src="https://github.com/user-attachments/assets/40b15daf-b9a5-4d26-aec6-14e66927bf2c" />
 
 **6. Student Attendance Workflow**
 QR
-→ Location
-→ Image capture
-→ Attendance
-This demonstrates the multi-factor concept visually.
+→ Location: <img width="985" height="601" alt="image" src="https://github.com/user-attachments/assets/9014c715-db43-4d5d-a2d7-11633838d0ee" />
+
+→ Image capture: <img width="663" height="921" alt="image" src="https://github.com/user-attachments/assets/4181f9b6-a165-410d-a176-7912ec08c8dd" />
+
+→ Attendance: <img width="967" height="687" alt="image" src="https://github.com/user-attachments/assets/2bd40302-5ace-400f-8c2e-238704a4d237" />
+
 
 **7. Image Capture**
 Show the camera/image-capture interface.
