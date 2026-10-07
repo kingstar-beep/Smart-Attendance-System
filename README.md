@@ -673,12 +673,17 @@ QR
 
 **7. Image Capture**
 Show the camera/image-capture interface.
+<img width="1019" height="904" alt="image" src="https://github.com/user-attachments/assets/f694aa77-f542-4bab-b940-ddb204a183ad" />
 
 **8. Successful Attendance**
 Show the successful attendance confirmation.
+<img width="1124" height="790" alt="image" src="https://github.com/user-attachments/assets/170a1cf3-f2e0-45bf-98d0-774e3bd0a448" />
+
 
 **9. Live Attendance**
-Show the lecturer selecting a session and seeing the students who have recorded attendance.
+Lecturer selecting a session and seeing the students who have recorded attendance.
+<img width="1487" height="905" alt="image" src="https://github.com/user-attachments/assets/1c85f27d-ed22-440a-a78c-3b3a4a92d46c" />
+
 
 **10. Database / Architecture Evidence**
 For GitHub, include:
